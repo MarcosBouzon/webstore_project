@@ -1,0 +1,21 @@
+.product-wrapper {
+    margin: 10px;
+    padding: 1rem;
+    box-shadow: none;
+    transition: box-shadow .2s;
+}
+.product-wrapper:hover {
+    cursor: pointer;
+    box-shadow: 0 0 10px #0000003d;
+    transition: box-shadow .2s;
+}
+.product-wrapper .product-link {
+    text-decoration: none;
+    color: #162454;
+}
+.product-wrapper .product-link:hover {
+    color: #162454;
+}
+.product-wrapper .image-wrapper img {
+    width: 100%;
+}

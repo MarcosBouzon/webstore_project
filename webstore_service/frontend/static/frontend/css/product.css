@@ -1,0 +1,17 @@
+.main-wrapper .image-wrapper img {
+    width: 100%;
+}
+.main-wrapper .buttons-wrapper {
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+}
+.main-wrapper .buttons-wrapper a {
+    background-color: #d8870e;
+    color: #ffffff;
+    border-radius: 2rem;
+    text-align: center;
+    text-decoration: none;
+    padding: 1rem 2rem;
+}
