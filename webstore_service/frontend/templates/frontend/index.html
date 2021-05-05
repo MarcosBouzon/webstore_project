@@ -11,150 +11,28 @@
 {% block Main %}
   <div class="main-wrapper container-fluid col-xl-8">
     <div class="row mx-0 justify-content-center align-items-center">
-      <!-- product -->
-      <div class="product-wrapper col-6 col-md-5 col-lg-4 col-xl-3">
-          <a class="product-link" href="/product/1/">
-          <div class="row mx-0 justify-content-center align-items-center">
-            <div class="image-wrapper">
-              <img src="{% static 'frontend/images/products/acer-nitro-5.png' %}" alt="">
+      {% if products %}
+        {% for product in products %}
+        <!-- product -->
+        <div class="product-wrapper col-6 col-md-5 col-lg-4 col-xl-3">
+            <a class="product-link" href="/product/{{product.pk}}/">
+            <div class="row mx-0 justify-content-center align-items-center">
+              <div class="image-wrapper">
+                <img src="{% static 'frontend/images/products/' %}{{product.image}}" alt="">
+              </div>
+              <div class="text-wrapper">
+                <h6 class="d-md-none">{{product.name}}</h6>
+                <h5 class="d-none d-md-block d-xl-none">{{product.name}}</h5>
+                <h6 class="d-none d-xl-block">{{product.name}}</h6>
+                <h6 class="d-md-none">{{product.price}}</h6>
+                <h5 class="d-none d-md-block d-xl-none">{{product.price}}</h5>
+                <h6 class="d-none d-xl-block">{{product.price}}</h6>
+              </div>
             </div>
-            <div class="text-wrapper">
-              <h6 class="d-md-none">Product title</h6>
-              <h5 class="d-none d-md-block d-xl-none">Product title</h5>
-              <h6 class="d-none d-xl-block">Product title</h6>
-              <h6 class="d-md-none">$ 1,200</h6>
-              <h5 class="d-none d-md-block d-xl-none">$ 1,200</h5>
-              <h6 class="d-none d-xl-block">$ 1,200</h6>
-            </div>
-          </div>
-        </a>
-      </div>
-      <!-- product -->
-      <div class="product-wrapper col-6 col-md-5 col-lg-4 col-xl-3">
-          <a class="product-link" href="/product/1/">
-          <div class="row mx-0 justify-content-center align-items-center">
-            <div class="image-wrapper">
-              <img src="{% static 'frontend/images/products/acer-nitro-5.png' %}" alt="">
-            </div>
-            <div class="text-wrapper">
-              <h6 class="d-md-none">Product title</h6>
-              <h5 class="d-none d-md-block d-xl-none">Product title</h5>
-              <h6 class="d-none d-xl-block">Product title</h6>
-              <h6 class="d-md-none">$ 1,200</h6>
-              <h5 class="d-none d-md-block d-xl-none">$ 1,200</h5>
-              <h6 class="d-none d-xl-block">$ 1,200</h6>
-            </div>
-          </div>
-        </a>
-      </div>
-      <!-- product -->
-      <div class="product-wrapper col-6 col-md-5 col-lg-4 col-xl-3">
-          <a class="product-link" href="/product/1/">
-          <div class="row mx-0 justify-content-center align-items-center">
-            <div class="image-wrapper">
-              <img src="{% static 'frontend/images/products/acer-nitro-5.png' %}" alt="">
-            </div>
-            <div class="text-wrapper">
-              <h6 class="d-md-none">Product title</h6>
-              <h5 class="d-none d-md-block d-xl-none">Product title</h5>
-              <h6 class="d-none d-xl-block">Product title</h6>
-              <h6 class="d-md-none">$ 1,200</h6>
-              <h5 class="d-none d-md-block d-xl-none">$ 1,200</h5>
-              <h6 class="d-none d-xl-block">$ 1,200</h6>
-            </div>
-          </div>
-        </a>
-      </div>
-      <!-- product -->
-      <div class="product-wrapper col-6 col-md-5 col-lg-4 col-xl-3">
-          <a class="product-link" href="/product/1/">
-          <div class="row mx-0 justify-content-center align-items-center">
-            <div class="image-wrapper">
-              <img src="{% static 'frontend/images/products/acer-nitro-5.png' %}" alt="">
-            </div>
-            <div class="text-wrapper">
-              <h6 class="d-md-none">Product title</h6>
-              <h5 class="d-none d-md-block d-xl-none">Product title</h5>
-              <h6 class="d-none d-xl-block">Product title</h6>
-              <h6 class="d-md-none">$ 1,200</h6>
-              <h5 class="d-none d-md-block d-xl-none">$ 1,200</h5>
-              <h6 class="d-none d-xl-block">$ 1,200</h6>
-            </div>
-          </div>
-        </a>
-      </div>
-      <!-- product -->
-      <div class="product-wrapper col-6 col-md-5 col-lg-4 col-xl-3">
-          <a class="product-link" href="/product/1/">
-          <div class="row mx-0 justify-content-center align-items-center">
-            <div class="image-wrapper">
-              <img src="{% static 'frontend/images/products/acer-nitro-5.png' %}" alt="">
-            </div>
-            <div class="text-wrapper">
-              <h6 class="d-md-none">Product title</h6>
-              <h5 class="d-none d-md-block d-xl-none">Product title</h5>
-              <h6 class="d-none d-xl-block">Product title</h6>
-              <h6 class="d-md-none">$ 1,200</h6>
-              <h5 class="d-none d-md-block d-xl-none">$ 1,200</h5>
-              <h6 class="d-none d-xl-block">$ 1,200</h6>
-            </div>
-          </div>
-        </a>
-      </div>
-      <!-- product -->
-      <div class="product-wrapper col-6 col-md-5 col-lg-4 col-xl-3">
-          <a class="product-link" href="/product/1/">
-          <div class="row mx-0 justify-content-center align-items-center">
-            <div class="image-wrapper">
-              <img src="{% static 'frontend/images/products/acer-nitro-5.png' %}" alt="">
-            </div>
-            <div class="text-wrapper">
-              <h6 class="d-md-none">Product title</h6>
-              <h5 class="d-none d-md-block d-xl-none">Product title</h5>
-              <h6 class="d-none d-xl-block">Product title</h6>
-              <h6 class="d-md-none">$ 1,200</h6>
-              <h5 class="d-none d-md-block d-xl-none">$ 1,200</h5>
-              <h6 class="d-none d-xl-block">$ 1,200</h6>
-            </div>
-          </div>
-        </a>
-      </div>
-      <!-- product -->
-      <div class="product-wrapper col-6 col-md-5 col-lg-4 col-xl-3">
-          <a class="product-link" href="/product/1/">
-          <div class="row mx-0 justify-content-center align-items-center">
-            <div class="image-wrapper">
-              <img src="{% static 'frontend/images/products/acer-nitro-5.png' %}" alt="">
-            </div>
-            <div class="text-wrapper">
-              <h6 class="d-md-none">Product title</h6>
-              <h5 class="d-none d-md-block d-xl-none">Product title</h5>
-              <h6 class="d-none d-xl-block">Product title</h6>
-              <h6 class="d-md-none">$ 1,200</h6>
-              <h5 class="d-none d-md-block d-xl-none">$ 1,200</h5>
-              <h6 class="d-none d-xl-block">$ 1,200</h6>
-            </div>
-          </div>
-        </a>
-      </div>
-      <!-- product -->
-      <div class="product-wrapper col-6 col-md-5 col-lg-4 col-xl-3">
-          <a class="product-link" href="/product/1/">
-          <div class="row mx-0 justify-content-center align-items-center">
-            <div class="image-wrapper">
-              <img src="{% static 'frontend/images/products/acer-nitro-5.png' %}" alt="">
-            </div>
-            <div class="text-wrapper">
-              <h6 class="d-md-none">Product title</h6>
-              <h5 class="d-none d-md-block d-xl-none">Product title</h5>
-              <h6 class="d-none d-xl-block">Product title</h6>
-              <h6 class="d-md-none">$ 1,200</h6>
-              <h5 class="d-none d-md-block d-xl-none">$ 1,200</h5>
-              <h6 class="d-none d-xl-block">$ 1,200</h6>
-            </div>
-          </div>
-        </a>
-      </div>
+          </a>
+        </div>
+        {% endfor %}
+      {% endif %}
     </div>
   </div>
 {% endblock Main %}
