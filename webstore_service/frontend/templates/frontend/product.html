@@ -11,19 +11,20 @@
 {% block Main %}
   <div class="main-wrapper container">
     <div class="row mx-0 justify-content-center align-items-center">
+      {% if product %}
       <!-- image -->
       <div class="image-wrapper col-12 col-md-8 col-xl-6">
-        <img src="{% static 'frontend/images/products/acer-nitro-5.png' %}" alt="">
+        <img src="{% static 'frontend/images/products/' %}{{product.image}}" alt="">
       </div>
       <div class="text-wrapper col-12 col-lg-10 col-xl-6">
         <div class="row mx-0">
           <!-- title -->
           <div class="title-wrapper col-12">
-            <h3>title here</h3>
+            <h3>{{product.name}}</h3>
           </div>
           <!-- description -->
           <div class="description-wrapper">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo natus officia delectus ab incidunt ratione provident cupiditate dolorum ut laborum, totam assumenda, minus eaque culpa quasi quisquam quos nisi iusto.</p>
+            <p>{{product.description}}</p>
           </div>
         </div>
         <!-- buttons -->
@@ -31,6 +32,7 @@
           <a class="col-6 col-md-4" href="">Add to cart</a>
         </div>
       </div>
+      {% endif %}
     </div>
   </div>
 {% endblock Main %}

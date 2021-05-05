@@ -3,6 +3,7 @@
 
 <head>
   {% load static %}
+  {% load form_field %}
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -42,13 +43,16 @@
       <div class="collapse navbar-collapse" id="navbarScroll">
         <ul class="navbar-nav me-auto my-2 my-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" aria-current="page" href="{% url 'frontend_home' %}">Home</a>
           </li>
         </ul>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        {% if form %}
+        <form class="d-flex" action="/search/" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          {% form_field form.search class="form-control me-2" type="search" placeholder="Search" aria-label="Search" %}
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
+        {% endif %}
       </div>
       <div class="cart-badge-wrapper">
           <span class="material-icons">shopping_cart
