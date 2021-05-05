@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from .forms import SearchForm
+from .forms import SearchForm, NewProduct
 
 import requests
 
@@ -21,7 +21,6 @@ def index(request):
     # no products in db
     return render(request, "frontend/index.html", context)
 
-
 def product(request, product_id):
     form = SearchForm()
     # get requested product from service
@@ -36,6 +35,16 @@ def product(request, product_id):
         # product doen't exist
         messages.error(request, "The requested product doesn't exist")
     return render(request, "frontend/product.html", context)
+
+def new_product(request):
+    # instance of forms
+    form = SearchForm()
+    new_product_form = NewProduct()
+    context = {
+        "form": form,
+        "form_new_product": new_product_form
+    }
+    return render(request, "frontend/new_product.html", context)
 
 def search(request):
     form = SearchForm()

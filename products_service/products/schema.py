@@ -29,7 +29,29 @@ class Query(graphene.ObjectType):
             return Product.objects.get(id=product_id)
 
 
+# mutations handler class
+class SaveNewProduct(graphene.Mutation):
+    class Arguments:
+        # id = graphene.Int()
+        name = graphene.String(required=True)
+        description = graphene.String()
+        price = graphene.Float()
+        image = graphene.String(required=True)
+
+    product = graphene.Field(ProductType)
+
+    def mutate(parent, info, name, description, price, image):
+        # new product instance
+        new_product = Product(name=name, description=description, price=price, image=image)
+        # save product
+        new_product.save()
+        # return representation of this mutation
+        return SaveNewProduct(product=new_product)
 
 
+# mutation call class
+class Mutation(graphene.ObjectType):
+    create_new_product = SaveNewProduct.Field()
 
-schema = graphene.Schema(query=Query)
+
+schema = graphene.Schema(query=Query, mutation=Mutation)

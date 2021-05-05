@@ -45,6 +45,7 @@ class form_tags_render(template.Node):
             raise template.TemplateSyntaxError(f"{self.__html_tag} doesn't exist in form {context['form'].__class__.__name__}")
         # join all attributes in a single string
         self.__attrib_string = str.join(" ", self.__html_attributes)
+        # print(self.__form_field)
         return self.__form_field.split(" ", 1)[0] + " " + mark_safe(self.__attrib_string) + " " + self.__form_field.split(" ", 1)[1]
 
 register.tag("form_field", form_tags)
