@@ -1,3 +1,4 @@
+from django.middleware.csrf import get_token
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from .schema import schema
@@ -14,12 +15,17 @@ def resolve(request):
             # response object
             response = JsonResponse(queryset.data)
             return response
+    elif request.method == "POST":
+        mutation = request.POST.get("mutation")
+        # execute mutation
+        queryset = schema.execute(mutation)
+        response = JsonResponse(queryset.data)
+        return response
 
     # no found
-    response = HttpResponse(request)
+    response = HttpResponse(request, get_token(request))
     response.status_code = 404
     return response
-
 
 
 

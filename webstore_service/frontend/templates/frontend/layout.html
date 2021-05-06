@@ -45,6 +45,9 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{% url 'frontend_home' %}">Home</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'frontend_new_product' %}">Add Products</a>
+          </li>
         </ul>
         {% if form %}
         <form class="d-flex" action="/search/" method="POST" enctype="multipart/form-data">
@@ -57,7 +60,11 @@
       <div class="cart-badge-wrapper">
           <span class="material-icons">shopping_cart
           </span>
-          <span class="cart-content-counter">1</span>
+          {% if cart_items %}
+          <span class="cart-content-counter">{{cart_items | length}}</span>
+          {% else %}
+          <span class="cart-content-counter"></span>
+          {% endif %}
       </div>
     </div>
   </nav>

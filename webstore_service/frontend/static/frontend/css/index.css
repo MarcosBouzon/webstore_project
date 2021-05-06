@@ -19,3 +19,10 @@
 .product-wrapper .image-wrapper img {
     width: 100%;
 }
+.product-wrapper .product-title {
+    margin: 0;
+}
+.product-wrapper p {
+    font-size: 0.65rem;
+    margin-bottom: 1rem;
+}

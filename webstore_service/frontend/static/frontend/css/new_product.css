@@ -1,0 +1,29 @@
+.form-wrapper {
+    display: flex;
+    margin: 2rem auto;
+    justify-content: center;
+    align-items: center;
+}
+.form-wrapper form {
+    box-shadow: 0 0 10px #0000003d;
+    padding: 2rem 0;
+}
+
+@media (min-width: 768px) {
+    .form-wrapper form {
+        padding: 2rem 1rem;
+    }
+}
+
+@media (min-width: 992px) {
+
+}
+
+@media (min-width: 1200px) {
+
+}
+
+@media (min-width: 1900px) {
+
+}
+

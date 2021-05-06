@@ -4,79 +4,95 @@
 
 <!-- Own CSS -->
 {% block CSS %}
-<link rel="stylesheet" href="{% static 'frontend/css/product.css' %}">
+<link rel="stylesheet" href="{% static 'frontend/css/new_product.css' %}">
 {% endblock CSS %}
 
 
 <!-- Main content -->
 {% block Main %}
-<form action="" enctype="multipart/form-data" , method="POST">
-  <!-- form security -->
-  {% csrf_token %} 
-  <div class="row mx-0 justify-content-center">
-    <div class="col-6 text-center">
-      <h1 class="title">Add new products here</h1>
-    </div>
-    <!-- line break -->
-    <div class="w-100"></div>
-    <!-- NAME -->
-    <div class="input-section-wrapper col-6 mx-0 my-2">
-      <!-- label -->
-      {% form_field form_new_product.name.label class="form-control-label" %}
-      <!-- invalid -->
-      {% if form_new_product.name.errors %}
-        {% form_field form_new_product.name class="form-control is-invalid" %}
-      <!-- render errors -->
-      {% for error in form_new_product.name.errors %}
-        <span class="text-danger"> {{error}} </span>
-      {% endfor %}
-      <!-- valid -->
-      {% else %}
-        {% form_field form_new_product.name class="form-control" %}
-      {% endif %}
-    </div>
-    <!-- PRICE -->
-    <div class="input-section-wrapper col-6 mx-0 my-2">
-      <!-- label -->
-      {% form_field form_new_product.price.label class="form-control-label" %}
-      <!-- invalid -->
-      {% if form_new_product.price.errors %}
-        {% form_field form_new_product.price class="form-control is-invalid" %}
-      <!-- render errors -->
-      {% for error in form_new_product.price.errors %}
-        <span class="text-danger"> {{error}} </span>
-      {% endfor %}
-      <!-- valid -->
-      {% else %}
-        {% form_field form_new_product.price class="form-control" %}
-      {% endif %}
-    </div>
-    <!-- DESCRIPTION -->
-    <div class="input-section-wrapper col-6 mx-0 my-2">
-      <!-- label -->
-      {% form_field form_new_product.description.label class="form-control-label" %}
-      <!-- invalid -->
-      {% if form_new_product.description.errors %}
-        {% form_field form_new_product.description class="form-control is-invalid" %}
-      <!-- render errors -->
-      {% for error in form_new_product.description.errors %}
-        <span class="text-danger"> {{error}} </span>
-      {% endfor %}
-      <!-- valid -->
-      {% else %}
-        {% form_field form_new_product.description class="form-control" %}
-      {% endif %}
-    </div>
-    <!-- SUMBIT -->
-    <div class="input-section-wrapper col-12 mx-0 my-2">
-      <div class="row mx-0 justify-content-center align-items-center">
-        <div class="col-6 col-md-4">
-          {% form_field form_new_product.submit class="form-control btn btn-dark" %}
+<div class="container form-wrapper col-md-8 col-xl-6 col-xxl-4">
+  <form action="" enctype="multipart/form-data", method="POST">
+    <!-- form security -->
+    {% csrf_token %} 
+    <div class="row mx-0 justify-content-center">
+      <div class="col-12 text-center">
+        <h1 class="title">Add new product</h1>
+      </div>
+      <!-- NAME -->
+      <div class="input-section-wrapper col-12 col-md-8 mx-0 my-2">
+        <!-- label -->
+        {% form_field form_new_product.image.label class="form-control-label" %}
+        <!-- invalid -->
+        {% if form_new_product.image.errors %}
+          {% form_field form_new_product.image class="form-control is-invalid" %}
+        <!-- render errors -->
+        {% for error in form_new_product.image.errors %}
+          <span class="text-danger"> {{error}} </span>
+        {% endfor %}
+        <!-- valid -->
+        {% else %}
+          {% form_field form_new_product.image class="form-control" %}
+        {% endif %}
+      </div>
+      <!-- NAME -->
+      <div class="input-section-wrapper col-12 col-md-8 mx-0 my-2">
+        <!-- label -->
+        {% form_field form_new_product.name.label class="form-control-label" %}
+        <!-- invalid -->
+        {% if form_new_product.name.errors %}
+          {% form_field form_new_product.name class="form-control is-invalid" %}
+        <!-- render errors -->
+        {% for error in form_new_product.name.errors %}
+          <span class="text-danger"> {{error}} </span>
+        {% endfor %}
+        <!-- valid -->
+        {% else %}
+          {% form_field form_new_product.name class="form-control" %}
+        {% endif %}
+      </div>
+      <!-- PRICE -->
+      <div class="input-section-wrapper col-6 col-md-4 mx-0 my-2">
+        <!-- label -->
+        {% form_field form_new_product.price.label class="form-control-label" %}
+        <!-- invalid -->
+        {% if form_new_product.price.errors %}
+          {% form_field form_new_product.price class="form-control is-invalid" %}
+        <!-- render errors -->
+        {% for error in form_new_product.price.errors %}
+          <span class="text-danger"> {{error}} </span>
+        {% endfor %}
+        <!-- valid -->
+        {% else %}
+          {% form_field form_new_product.price class="form-control" %}
+        {% endif %}
+      </div>
+      <!-- DESCRIPTION -->
+      <div class="input-section-wrapper col-12 mx-0 my-2">
+        <!-- label -->
+        {% form_field form_new_product.description.label class="form-control-label" %}
+        <!-- invalid -->
+        {% if form_new_product.description.errors %}
+          {% form_field form_new_product.description class="form-control is-invalid" rows="10" %}
+        <!-- render errors -->
+        {% for error in form_new_product.description.errors %}
+          <span class="text-danger"> {{error}} </span>
+        {% endfor %}
+        <!-- valid -->
+        {% else %}
+          {% form_field form_new_product.description class="form-control" rows="10" %}
+        {% endif %}
+      </div>
+      <!-- SUMBIT -->
+      <div class="input-section-wrapper col-12 mx-0 my-2">
+        <div class="row mx-0 justify-content-center align-items-center">
+          <div class="col-6 col-md-4">
+            {% form_field form_new_product.submit class="form-control btn btn-dark" %}
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</form>
+  </form>
+</div>
 {% endblock Main %}
 
 <!-- JS -->

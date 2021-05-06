@@ -21,9 +21,10 @@
                 <img src="{% static 'frontend/images/products/' %}{{product.image}}" alt="">
               </div>
               <div class="text-wrapper">
-                <h6 class="d-md-none">{{product.name}}</h6>
-                <h5 class="d-none d-md-block d-xl-none">{{product.name}}</h5>
-                <h6 class="d-none d-xl-block">{{product.name}}</h6>
+                <h6 class="product-title d-md-none">{{product.name}}</h6>
+                <h5 class="product-title d-none d-md-block d-xl-none">{{product.name}}</h5>
+                <h6 class="product-title d-none d-xl-block">{{product.name}}</h6>
+                <p class="">Code: {{product.id}}</p>
                 <h6 class="d-md-none">{{product.price}}</h6>
                 <h5 class="d-none d-md-block d-xl-none">{{product.price}}</h5>
                 <h6 class="d-none d-xl-block">{{product.price}}</h6>

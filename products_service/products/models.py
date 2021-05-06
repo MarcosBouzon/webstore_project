@@ -11,6 +11,10 @@ class Product(models.Model):
         return self.name
 
 
+class Cart(models.Model):
+    id = models.IntegerField(primary_key=True, unique=True, auto_created=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
 
 
 
