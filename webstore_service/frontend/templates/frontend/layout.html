@@ -20,6 +20,11 @@
 </head>
 
 <body>
+  {% csrf_token %}
+  <script>
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+  </script>
+
   <!-- render server messages -->
   {% if messages %}
   <div class="messages-wrapper col-12">
@@ -69,6 +74,33 @@
     </div>
   </nav>
 
+  <!-- Cart modal -->
+  <div class="modal" tabindex="-1" id="cart-modal">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Cart Items</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <td class="d-none" scope="col">id</td>
+                <td scope="col">Code</td>
+                <td scope="col">Item</td>
+                <td scope="col">Price</td>
+                <td></td>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
   {% block Main %}{% endblock Main %}
 
   <!-- Bootstrap JS and Popper bundle -->
@@ -76,6 +108,7 @@
     integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous">
   </script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="{% static 'frontend/js/cart.js' %}"></script>
 
   <!-- Own JS -->
   {% block JS %}{% endblock %}
