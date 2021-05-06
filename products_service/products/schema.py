@@ -1,11 +1,13 @@
-import graphene
 from .models import Product, Cart
+from django.db.models import Q
 from graphene_django import DjangoObjectType
+
+import graphene
 
 class ProductType(DjangoObjectType):
     class Meta:
         model = Product
-        fields = ("id", "name", "description", "price", "image")
+        fields = ("id", "name",  "code","description", "price", "image")
 
 
 class CartType(DjangoObjectType):
@@ -19,7 +21,8 @@ class Query(graphene.ObjectType):
     Main Graphql query class
     """
     products = graphene.List(ProductType)
-    product = graphene.Field(ProductType, product_id=graphene.String(default_value=None, required=False))
+    product = graphene.Field(ProductType, product_id=graphene.Int(default_value=None, required=False))
+    search = graphene.List(ProductType, query=graphene.String(default_value=None, required=True))
     cart_items = graphene.List(CartType)
 
     @staticmethod
@@ -31,12 +34,18 @@ class Query(graphene.ObjectType):
     def resolve_product(parent, info, product_id):
         if not product_id:
             return None
+        # get product with id
+        queryset = Product.objects.get(id=product_id)
+        return queryset
+
+    @staticmethod
+    def resolve_search(parent, info, query):
+        print(query)
+        if not query:
+            return None
         # get product with id or name
-        if product_id:
-            if product_id.isnumeric():
-                queryset = Product.objects.get(id=product_id)
-            else:
-                queryset = Product.objects.filter(name__contains=product_id).first()
+        if query:
+            queryset = Product.objects.filter(Q(name__contains=query) | Q(code__contains=int(query))).all()
             return queryset
 
     @staticmethod
@@ -51,14 +60,15 @@ class SaveNewProduct(graphene.Mutation):
         # id = graphene.Int()
         name = graphene.String(required=True)
         description = graphene.String()
+        code = graphene.String(required=True)
         price = graphene.Float()
         image = graphene.String(required=True)
 
     product = graphene.Field(ProductType)
 
-    def mutate(parent, info, name, description, price, image):
+    def mutate(parent, info, name, description, code, price, image):
         # new product instance
-        new_product = Product(name=name, description=description, price=price, image=image)
+        new_product = Product(name=name, description=description, code=code, price=price, image=image)
         # save product
         new_product.save()
         # return representation of this mutation

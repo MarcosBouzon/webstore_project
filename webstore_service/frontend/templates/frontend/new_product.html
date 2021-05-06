@@ -18,7 +18,7 @@
       <div class="col-12 text-center">
         <h1 class="title">Add new product</h1>
       </div>
-      <!-- NAME -->
+      <!-- IMAGE -->
       <div class="input-section-wrapper col-12 col-md-8 mx-0 my-2">
         <!-- label -->
         {% form_field form_new_product.image.label class="form-control-label" %}
@@ -35,7 +35,7 @@
         {% endif %}
       </div>
       <!-- NAME -->
-      <div class="input-section-wrapper col-12 col-md-8 mx-0 my-2">
+      <div class="input-section-wrapper col-12 col-xl-6 mx-0 my-2">
         <!-- label -->
         {% form_field form_new_product.name.label class="form-control-label" %}
         <!-- invalid -->
@@ -51,7 +51,7 @@
         {% endif %}
       </div>
       <!-- PRICE -->
-      <div class="input-section-wrapper col-6 col-md-4 mx-0 my-2">
+      <div class="input-section-wrapper col-6 col-md-3 mx-0 my-2">
         <!-- label -->
         {% form_field form_new_product.price.label class="form-control-label" %}
         <!-- invalid -->
@@ -64,6 +64,22 @@
         <!-- valid -->
         {% else %}
           {% form_field form_new_product.price class="form-control" %}
+        {% endif %}
+      </div>
+      <!-- CODE -->
+      <div class="input-section-wrapper col-6 col-md-8 col-xl-3 mx-0 my-2">
+        <!-- label -->
+        {% form_field form_new_product.code.label class="form-control-label" %}
+        <!-- invalid -->
+        {% if form_new_product.code.errors %}
+          {% form_field form_new_product.code class="form-control is-invalid" %}
+        <!-- render errors -->
+        {% for error in form_new_product.code.errors %}
+          <span class="text-danger"> {{error}} </span>
+        {% endfor %}
+        <!-- valid -->
+        {% else %}
+          {% form_field form_new_product.code class="form-control" %}
         {% endif %}
       </div>
       <!-- DESCRIPTION -->

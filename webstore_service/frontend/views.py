@@ -10,7 +10,6 @@ import requests
 from requests.exceptions import ConnectionError, HTTPError
 
 
-# PRODUCTS_URL = "http://localhost:5100/"
 PRODUCTS_URL = "http://products:5100/"
 from .utils import get_cart_items, add_cart_item, del_cart_item
 
@@ -23,9 +22,25 @@ def index(request):
     }
     # get products from service
     try:
-        products = requests.get(f"{PRODUCTS_URL}"+"?query={products { id name price image}}")
+        if request.GET.get("q"):
+            products = requests.get(f"{PRODUCTS_URL}" \
+                        + "?query={search (" + f'query:"{request.GET.get("q")}")' \
+                        + "{ id name description code price image}}")
+        else:
+            products = requests.get(f"{PRODUCTS_URL}" \
+                + "?query={products { id name code price image}}")
         if products.ok and products.status_code == 200 and products.json():
-            if products.json().get("products"):
+            # if search requested
+            if request.GET.get("q"):
+                # search exists
+                if products.json().get("search"):
+                    context["products"] = products.json().get("search")
+                    return render(request, "frontend/index.html", context)
+                # search doesn't exist
+                else:
+                    messages.error(request, "The requested product doesn't exist")
+            # no search requested
+            elif products.json().get("products"):
                 context["products"] = products.json().get("products")
                 return render(request, "frontend/index.html", context)
     except (HTTPError, ConnectionError):
@@ -42,7 +57,7 @@ def product(request, product_id):
     }
     # get requested product from service
     try:
-        products = requests.get(f"{PRODUCTS_URL}"+"?query={product(" + f'productId:"{product_id}")'+"{ id name description price image}}")
+        products = requests.get(f"{PRODUCTS_URL}"+"?query={product(" + f'productId:{product_id})'+"{ id name description code price image}}")
         if products.ok and products.status_code == 200 and products.json():
             if products.json().get("product"):
                 context["product"] = products.json().get("product")
@@ -50,7 +65,6 @@ def product(request, product_id):
             # product doen't exist
             messages.error(request, "The requested product doesn't exist")
     except (HTTPError, ConnectionError):
-        print("ERRORRRRRRRRRRRRRRR")
         context["product"] = []
     return render(request, "frontend/product.html", context)
 
@@ -80,9 +94,10 @@ def new_product(request):
                         + f''' createNewProduct(
                                 name: "{new_product_form.name.data.lower()}", 
                                 description: "{new_product_form.description.data}", 
+                                code: "{new_product_form.code.data.lower()}", 
                                 price: {new_product_form.price.data}, 
                                 image: "{request.FILES[new_product_form.image.name].name}") ''' \
-                            + " { product { name price description image }}}"
+                            + " { product { name description code price image }}}"
                 # request product creation
                 response = session.post(PRODUCTS_URL, 
                                         headers={"X-CSRFToken": csrf_token}, 
@@ -90,6 +105,7 @@ def new_product(request):
                 # created
                 if response.ok and response.status_code == 200:
                     if response.json() and response.json().get("createNewProduct").get("product"):
+                        print(response)
                         # get image
                         image = request.FILES[new_product_form.image.name]
                         # attempt to resize image
@@ -105,8 +121,9 @@ def new_product(request):
             except (HTTPError, ConnectionError):
                 messages.error(request, "Sorry, we are having problems at this time adding your product, please try again later")
                 return render(request, "frontend/new_product.html", context)
-        # form is not valid
-        messages.error(request, "Invalid form")
+        else:
+            # form is not valid
+            messages.error(request, "Invalid form")
     return render(request, "frontend/new_product.html", context)
 
 def search(request):
@@ -115,19 +132,7 @@ def search(request):
         # instance of form with posted data
         form = SearchForm(request.POST)
         if form.is_valid():
-            try:
-                # get requested product from service
-                products = requests.get(f"{PRODUCTS_URL}"+"?query={product(" + f'''productId:"{form['search'].value()}")'''+"{ id name description price image}}")
-                if products.ok and products.status_code == 200 and products.json():
-                    if products.json().get("product"):
-                        context = {
-                            "product": products.json().get("product")
-                        }
-                        return redirect(f"/product/{products.json().get('product').get('id')}",context=context)
-                    # product doen't exist
-                    messages.error(request, "The requested product doesn't exist")
-            except (HTTPError, ConnectionError):
-                messages.error(request, "Sorry, we are having problems at this time when looking for your search")
+            return redirect(f"/?q={form['search'].value()}")
     return redirect(index)
 
 def cart(request):

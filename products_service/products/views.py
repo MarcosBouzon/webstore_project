@@ -17,7 +17,6 @@ def resolve(request):
             return response
     elif request.method == "POST":
         mutation = request.POST.get("mutation")
-        print(mutation)
         # execute mutation
         queryset = schema.execute(mutation)
         response = JsonResponse(queryset.data, safe=False)
