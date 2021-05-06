@@ -1,0 +1,46 @@
+version: "3.9"
+
+networks:
+    app:
+        driver: bridge
+
+
+services:
+    webstore:
+        container_name: webstore
+        build: ./webstore_service
+        restart: always
+        networks:
+            - app
+        ports: 
+            - 5000:5000
+        hostname: webstore
+        volumes: 
+            - ./webstore_service/frontend/static:/webstore_service/frontend/static/
+        command: "gunicorn -b 0.0.0.0:5000 -w 3 webstore.wsgi"
+
+    products:
+        container_name: products
+        build: ./products_service
+        restart: always
+        networks:
+            - app
+        expose: 
+            - 5100
+        hostname: products
+        command: "gunicorn -b 0.0.0.0:5100 -w 3 products_service.wsgi"
+
+    webstore_nginx:
+        container_name: webstore_nginx
+        restart: always
+        build: ./nginx
+        ports:
+            - 8080:8080
+            - 443:443
+        networks:
+            - app
+        volumes:
+            - ./webstore_service/frontend/static:/webstore_service/frontend/static/
+        depends_on:
+            - webstore
+            - products

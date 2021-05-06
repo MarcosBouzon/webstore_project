@@ -10,7 +10,8 @@ import requests
 from requests.exceptions import ConnectionError, HTTPError
 
 
-PRODUCTS_URL = "http://localhost:5100/"
+# PRODUCTS_URL = "http://localhost:5100/"
+PRODUCTS_URL = "http://products:5100/"
 from .utils import get_cart_items, add_cart_item, del_cart_item
 
 def index(request):
