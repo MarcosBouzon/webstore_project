@@ -77,7 +77,7 @@ DATABASES = {
             'user': 'root',
             'password': 'root1234',
             'host': 'products_db',
-            'port': 33080
+            'port': 3306
         }
     }
 }
