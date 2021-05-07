@@ -30,8 +30,8 @@ $(document).ready(()=> {
   }
   
   function sort_by_title(a, b) {
-    let valA = $(a).find(".product-price").html()
-    let valB = $(b).find(".product-price").html()
+    let valA = $(a).find(".product-title").html()
+    let valB = $(b).find(".product-title").html()
     if (valA < valB) {
       return -1
     }
@@ -39,7 +39,7 @@ $(document).ready(()=> {
       return 1
     }
     else {
-      return valB - valA
+      return 0
     }
   }
 })
