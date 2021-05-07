@@ -28,7 +28,27 @@ services:
         expose: 
             - 5100
         hostname: products
+        depends_on: 
+            - products_db
         command: "gunicorn -b 0.0.0.0:5100 -w 3 products_service.wsgi"
+    
+    products_db:
+        container_name: products_db
+        image: mysql:latest
+        restart: always
+        hostname: products_db
+        networks:
+            - app
+        ports: 
+            - 33080:3306
+        expose: 
+            - 3306
+            - 3308
+        environment:
+            MYSQL_ROOT_PASSWORD: root1234
+        volumes: 
+            - ./MySQL_db/:/var/lib/mysql
+
 
     webstore_nginx:
         container_name: webstore_nginx

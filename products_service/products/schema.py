@@ -7,7 +7,7 @@ import graphene
 class ProductType(DjangoObjectType):
     class Meta:
         model = Product
-        fields = ("id", "name",  "code","description", "price", "image")
+        fields = ("id", "name", "description", "code", "price", "image")
 
 
 class CartType(DjangoObjectType):
@@ -40,13 +40,11 @@ class Query(graphene.ObjectType):
 
     @staticmethod
     def resolve_search(parent, info, query):
-        print(query)
         if not query:
             return None
-        # get product with id or name
-        if query:
-            queryset = Product.objects.filter(Q(name__contains=query) | Q(code__contains=int(query))).all()
-            return queryset
+        # get product with code or name
+        queryset = Product.objects.filter(Q(name__contains=query) | Q(code__contains=query)).all()
+        return queryset
 
     @staticmethod
     def resolve_cart_items(parent, info):

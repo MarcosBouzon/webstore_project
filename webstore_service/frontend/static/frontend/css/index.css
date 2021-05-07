@@ -1,5 +1,19 @@
+.sort-wrapper>div {
+    justify-content: flex-end;
+}
+.sort-wrapper .sorter {
+    margin: 0.5rem;
+    padding: 0.5rem;
+    border: 1px solid #162454;
+    border-radius: 2rem;
+    cursor: pointer;
+}
+.sort-wrapper .sorter span,
+.sort-wrapper .sorter p {
+    display: flex;
+    width: auto;
+}
 .product-wrapper {
-    margin: 10px;
     padding: 1rem;
     box-shadow: none;
     transition: box-shadow .2s;

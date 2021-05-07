@@ -93,7 +93,7 @@ def new_product(request):
                 mutation = "mutation {" \
                         + f''' createNewProduct(
                                 name: "{new_product_form.name.data.lower()}", 
-                                description: "{new_product_form.description.data}", 
+                                description: "{new_product_form.description.data.replace('"', "'")}", 
                                 code: "{new_product_form.code.data.lower()}", 
                                 price: {new_product_form.price.data}, 
                                 image: "{request.FILES[new_product_form.image.name].name}") ''' \
@@ -105,7 +105,6 @@ def new_product(request):
                 # created
                 if response.ok and response.status_code == 200:
                     if response.json() and response.json().get("createNewProduct").get("product"):
-                        print(response)
                         # get image
                         image = request.FILES[new_product_form.image.name]
                         # attempt to resize image
@@ -115,9 +114,8 @@ def new_product(request):
                         messages.success(request, "Your product have been added")
                         return redirect(new_product)
                 # failed to create
-                else:
-                    messages.error(request, "Sorry, we couldn't save your product at this time")
-                    return render(request, "frontend/new_product.html", context)
+                messages.error(request, "Sorry, we couldn't save your product at this time")
+                return render(request, "frontend/new_product.html", context)
             except (HTTPError, ConnectionError):
                 messages.error(request, "Sorry, we are having problems at this time adding your product, please try again later")
                 return render(request, "frontend/new_product.html", context)

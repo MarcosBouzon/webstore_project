@@ -45,7 +45,9 @@ function renderCartItems(items) {
       </tr>
     `)
   });
-  $("#cart-modal .modal-header h5").html(`Cart Items: ${items.length}`)
+  if ((items) && (items.length > 0)) {
+    $("#cart-modal .modal-header h5").html(`Cart Items: ${items.length}`)
+  }
   // enable deletion of items from cart
   delCartItem()
 }
